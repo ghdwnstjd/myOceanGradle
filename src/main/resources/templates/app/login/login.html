@@ -101,6 +101,44 @@ http://localhost:15000/login/kakaoLogin&response_type=code&prompt=login" class="
         <!-- footer 추가 부분 -->
     </div>
 </div>
+<!--모달 추가-->
+<div tabindex="-1" role="dialog" id="__BVID__287___BV_modal_outer_" style="position: absolute; z-index: 1040; display: none;">
+    <div id="__BVID__287" role="dialog" aria-describedby="__BVID__287___BV_modal_body_" class="modal fade show" aria-modal="true" style="display: block; padding-left: 17px;background: rgba(0, 0, 0, 0.35);">
+        <div class="modal-dialog modal-lg modal-dialog-centered">
+            <span tabindex="0"></span>
+            <!--저장 확인-->
+            <div id="__BVID__123___BV_modal_content_" tabindex="-1" class="modal-content" style="">
+                <!---->
+                <div id="__BVID__123___BV_modal_body_" class="modal-body">
+                    <div class="text-center p-3"><div class="text-frip-primary my-3">
+                        <i class="" style="font-size: 2.5rem;"></i>
+                    </div>
+                        <h2>회원가입 실패</h2>
+                        <div>
+                            <div></div>
+                            <div>
+                                <div>
+                                    <span></span>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <footer id="__BVID__123___BV_modal_footer_" class="modal-footer">
+                    <div class="text-center p-3 container">
+                        <button type="button" class="saveRequest btn frip-button btn-frip-primary btn-tab">
+                            확인
+                        </button>
+                    </div>
+                </footer>
+            </div>
+            <span tabindex="0"></span>
+        </div>
+    </div>
+    <div id="__BVID__287___BV_modal_backdrop_" class="modal-backdrop"></div>
+</div>
+<!--모달 추가-->
+
 <div id="modal-root"></div>
 <div id="dnd-root"></div>
 <div id="fb-root" class="fb_reset"></div>
@@ -122,13 +160,34 @@ http://localhost:15000/login/kakaoLogin&response_type=code&prompt=login" class="
     var secureUserKakao=new URL(location.href).searchParams.get("securekakao");
     var existUserGoogle=new URL(location.href).searchParams.get("existgoogle");
     if(existUserKakao==true){
-        alert("카카오 계정으로 가입된 계정이 있습니다.");
+        $("div.modal-content").find("span").text("카카오 계정으로 가입된 계정이 있습니다.");
+        $("#__BVID__287___BV_modal_outer_").show();
+        $(".btn-tab").on("click",function(){
+            $("#__BVID__287___BV_modal_outer_").hide();
+            // location.href="/myPoint/index";
+            return;
+        });
+        // alert("카카오 계정으로 가입된 계정이 있습니다.");
     }
     if(existUserGoogle==true){
-        alert("구글 계정으로 가입된 계정이 있습니다.");
+        $("div.modal-content").find("span").text("구글 계정으로 가입된 계정이 있습니다.");
+        $("#__BVID__287___BV_modal_outer_").show();
+        $(".btn-tab").on("click",function(){
+            $("#__BVID__287___BV_modal_outer_").hide();
+            // location.href="/myPoint/index";
+            return;
+        });
+        // alert("구글 계정으로 가입된 계정이 있습니다.");
     }
     if(secureUserKakao==true){
-        alert("카카오 2단계 인증의 이메일 제공 동의를 진행하고 회원가입을 진행해주십시오.");
+        $("div.modal-content").find("span").text("카카오 2단계 인증의 이메일 제공 동의를 진행하고 회원가입을 진행해주십시오.");
+        $("#__BVID__287___BV_modal_outer_").show();
+        $(".btn-tab").on("click",function(){
+            $("#__BVID__287___BV_modal_outer_").hide();
+            // location.href="/myPoint/index";
+            return;
+        });
+        // alert("카카오 2단계 인증의 이메일 제공 동의를 진행하고 회원가입을 진행해주십시오.");
     }
 </script>
 </html>

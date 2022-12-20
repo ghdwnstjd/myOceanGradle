@@ -345,3 +345,181 @@ input[type="number"]::-webkit-inner-spin-button {
     text-align: right;
     color: red;
 }
+
+/*=======================================================================*/
+a, area, button, input, label, select, textarea, [tabindex] {
+    -ms-touch-action: manipulation;
+    touch-action: manipulation;
+}
+
+#app, .modal {
+    font-family: Noto Sans KR,sans-serif;
+    letter-spacing: -.5px;
+    color: #333;
+}
+
+.fade {
+    transition: opacity .15s linear;
+}
+
+.modal {
+    position: fixed;
+    top: 0;
+    left: 0;
+    z-index: 1050;
+    display: none;
+    width: 100%;
+    height: 100%;
+    overflow: hidden;
+    outline: 0;
+    overflow-y: auto;
+}
+
+.modal.show .modal-dialog {
+    transform: none;
+}
+
+.modal.fade .modal-dialog {
+    transition: transform .3s ease-out;
+}
+
+.modal-dialog-centered {
+    display: flex;
+    align-items: center;
+    min-height: calc(100% - 1rem);
+}
+
+
+@Media(min-width:576px){
+    .modal-dialog {
+        margin: 1.75rem auto;
+    }
+
+    .modal-dialog {
+        max-width: 500px;
+        margin: 1.75rem auto;
+    }
+
+    .modal-content {
+        box-shadow: 0 15px 35px rgb(50 50 93 / 20%), 0 5px 15px rgb(0 0 0 / 17%);
+    }
+
+    .container {
+        max-width: 540px;
+    }
+
+}
+
+@Media(min-width:768px){
+
+    .container {
+        max-width: 720px;
+    }
+}
+.modal-dialog {
+    position: relative;
+    width: auto;
+    margin: 0.5rem;
+    pointer-events: none;
+}
+
+a, area, button, input, label, select, textarea, [tabindex] {
+    -ms-touch-action: manipulation;
+    touch-action: manipulation;
+}
+
+.modal-content {
+    position: relative;
+    display: flex;
+    flex-direction: column;
+    width: 100%;
+    pointer-events: auto;
+    background-color: #fff;
+    background-clip: padding-box;
+    border: 0 solid rgba(0,0,0,.2);
+    border-radius: 0.4375rem;
+    box-shadow: 0 15px 35px rgb(50 50 93 / 20%), 0 5px 15px rgb(0 0 0 / 17%);
+    outline: 0;
+    top: 50%;
+    left: 150%;
+    transform: translate(-50%, -50%);
+    margin-top: 35%;
+}
+
+.modal-body {
+    position: relative;
+    flex: 1 1 auto;
+    padding: 0;
+}
+
+.text-center {
+    text-align: center!important;
+}
+
+.p-3 {
+    padding: 1rem!important;
+}
+
+.mt-3, .my-3 {
+    margin-top: 1rem!important;
+}
+
+.text-frip-primary {
+    color: #5682ad!important;
+}
+
+.container {
+    width: 100%;
+    padding-right: 15px;
+    padding-left: 15px;
+    margin-right: auto;
+    margin-left: auto;
+}
+
+[type=button]:not(:disabled), [type=reset]:not(:disabled), [type=submit]:not(:disabled), button:not(:disabled) {
+    cursor: pointer;
+}
+
+.btn-frip-primary, .btn-frip-primary:hover {
+    color: #fff;
+    background-color: #6985a0;
+    border-color: #6985a0;
+}
+
+.btn-tab {
+    padding-inline: 2rem;
+}
+
+.btn {
+    border-radius: 0.25rem;
+    padding: 14px;
+    position: relative;
+    text-transform: none;
+    transition: all .15s ease;
+    letter-spacing: -.025em;
+    font-size: .8125rem;
+    will-change: transform;
+}
+
+.frip-button {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+}
+
+.btn {
+    font-weight: 500;
+    text-align: center;
+    vertical-align: middle;
+    -webkit-user-select: none;
+    -moz-user-select: none;
+    -ms-user-select: none;
+    user-select: none;
+    border: 1px solid transparent;
+}
+
+[type=button], [type=reset], [type=submit], button {
+    -webkit-appearance: button;
+}
+
+/*=======================================================================*/

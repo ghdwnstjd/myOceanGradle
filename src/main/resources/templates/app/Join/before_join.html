@@ -64,7 +64,7 @@ http://localhost:15000/join/kakaoJoin&response_type=code&prompt=login" class="Bu
                         <img src="https://banner2.cleanpng.com/20180324/iww/kisspng-google-logo-g-suite-google-5ab6f1cee66464.5739288415219388949437.jpg" style="width:21px;height:21px;" alt="구글로 시작">
                     </a>
                     <a href="https://nid.naver.com/oauth2.0/authorize?client_id=dF32vzYf2D0cYGgonhWY&response_type=code&redirect_uri=http://localhost:15000/naver-join/join"
-                            class="Button-bqxlp0-0 ImageButton__FacebookRegisterButton-sc-1gujkoj-0 hWMKcf" width="48px" height="48px">
+                       class="Button-bqxlp0-0 ImageButton__FacebookRegisterButton-sc-1gujkoj-0 hWMKcf" width="48px" height="48px">
                         <img src="https://play-lh.googleusercontent.com/Kbu0747Cx3rpzHcSbtM1zDriGFG74zVbtkPmVnOKpmLCS59l7IuKD5M3MKbaq_nEaZM" style="width:21px;height:21px;" alt="네이버로 시작">
                     </a>
                     <a href="/login/index">
@@ -72,7 +72,7 @@ http://localhost:15000/join/kakaoJoin&response_type=code&prompt=login" class="Bu
                     </a>
                 </div>
                 <p class="GlobalNavigationBar__SpeechBubbleContainer-og74wb-18 ierGsl generalJoinMsgWrap">
-                    <div class="SpeechBubble__Container-sc-19cq08p-0 eBDrIh generalJoinMsg">일반 회원가입 시 5,000 포인트 및 <br>회원가입 뱃지 증정!</div>
+                <div class="SpeechBubble__Container-sc-19cq08p-0 eBDrIh generalJoinMsg">일반 회원가입 시 5,000 포인트 및 <br>회원가입 뱃지 증정!</div>
                 </p>
                 <p class="IntroPage__RecentLogin-sc-2ms2nt-6 lduEbR">최근 로그인은 이메일입니다.</p>
             </div>
@@ -98,6 +98,43 @@ http://localhost:15000/join/kakaoJoin&response_type=code&prompt=login" class="Bu
         <div></div>
     </div>
 </div>
+<!--모달 추가-->
+<div tabindex="-1" role="dialog" id="__BVID__287___BV_modal_outer_" style="position: absolute; z-index: 1040; display: none;">
+    <div id="__BVID__287" role="dialog" aria-describedby="__BVID__287___BV_modal_body_" class="modal fade show" aria-modal="true" style="display: block; padding-left: 17px;background: rgba(0, 0, 0, 0.35);">
+        <div class="modal-dialog modal-lg modal-dialog-centered">
+            <span tabindex="0"></span>
+            <!--저장 확인-->
+            <div id="__BVID__123___BV_modal_content_" tabindex="-1" class="modal-content" style="">
+                <!---->
+                <div id="__BVID__123___BV_modal_body_" class="modal-body">
+                    <div class="text-center p-3"><div class="text-frip-primary my-3">
+                        <i class="" style="font-size: 2.5rem;"></i>
+                    </div>
+                        <h2>로그인 실패</h2>
+                        <div>
+                            <div></div>
+                            <div>
+                                <div>
+                                    <span></span>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <footer id="__BVID__123___BV_modal_footer_" class="modal-footer">
+                    <div class="text-center p-3 container">
+                        <button type="button" class="saveRequest btn frip-button btn-frip-primary btn-tab">
+                            확인
+                        </button>
+                    </div>
+                </footer>
+            </div>
+            <span tabindex="0"></span>
+        </div>
+    </div>
+    <div id="__BVID__287___BV_modal_backdrop_" class="modal-backdrop"></div>
+</div>
+<!--모달 추가-->
 <div id="footer"></div>
 <footer th:replace="/app/fix/footer.html :: footer"></footer>
 </body>
@@ -115,13 +152,34 @@ http://localhost:15000/join/kakaoJoin&response_type=code&prompt=login" class="Bu
     var notjoinFlaggoogle=new URL(location.href).searchParams.get("googlenotjoin");
     var notjoinFlagnaver=new URL(location.href).searchParams.get("navernotjoin");
     if(notjoinFlagkakao){
-        alert("카카오 회원가입을 진행해주십시오.");
+        $("div.modal-content").find("span").text("카카오 회원가입을 진행해주십시오.");
+        $("#__BVID__287___BV_modal_outer_").show();
+        $(".btn-tab").on("click",function(){
+            $("#__BVID__287___BV_modal_outer_").hide();
+            // location.href="/myPoint/index";
+            return;
+        });
+        // alert("카카오 회원가입을 진행해주십시오.");
     }
     if(notjoinFlaggoogle){
-        alert("구글 회원가입을 진행해주십시오.");
+        $("div.modal-content").find("span").text("구글 회원가입을 진행해주십시오.");
+        $("#__BVID__287___BV_modal_outer_").show();
+        $(".btn-tab").on("click",function(){
+            $("#__BVID__287___BV_modal_outer_").hide();
+            // location.href="/myPoint/index";
+            return;
+        });
+        // alert("구글 회원가입을 진행해주십시오.");
     }
     if(notjoinSecurekakao){
-        alert("카카오 2단계 인증의 이메일 제공 동의를 진행하고 회원가입을 진행해주십시오.");
+        $("div.modal-content").find("span").text("카카오 2단계 인증의 이메일 제공 동의를 진행하고 회원가입을 진행해주십시오.");
+        $("#__BVID__287___BV_modal_outer_").show();
+        $(".btn-tab").on("click",function(){
+            $("#__BVID__287___BV_modal_outer_").hide();
+            // location.href="/myPoint/index";
+            return;
+        });
+        // alert("카카오 2단계 인증의 이메일 제공 동의를 진행하고 회원가입을 진행해주십시오.");
     }
 
     if(notjoinFlagnaver){

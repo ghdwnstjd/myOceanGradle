@@ -21,7 +21,7 @@ public class Ask extends Period{
     @ManyToOne(fetch = FetchType.LAZY)
     @JoinColumn(name = "USER_ID")
     private User user;//유저가 null일 경우 자주 묻는 질문
-    @NotNull
+
     @Enumerated(EnumType.STRING)
     private AskStatus askStatus; //Enum
     private String askTitle;

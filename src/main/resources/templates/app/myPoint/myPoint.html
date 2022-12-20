@@ -24,7 +24,7 @@
     </div>
     <div class="PcTop__Content-sc-1mni0hl-1 iKjpvd">
         <input type="number" class="gGztpV" placeholder="충전금액" pattern="[0-9]*" style="-webkit-appearance: none;">
-        <button class="Outlined__Button-qqupyj-0 kpRdoO" style="line-height:0.5" onclick="requestPay()">충전</button>
+        <button type="button" class="Outlined__Button-qqupyj-0 kpRdoO" style="line-height:0.5" onclick="requestPay()">충전</button>
         <button class="Outlined__Button-qqupyj-0 kpRdoO" style="line-height:0.5" onclick="location.href='/myPoint/myPointRefund'">환불</button>
     </div>
     <div class="PageWrapper-sc-1w87j10-0 bScXKt">
@@ -36,6 +36,45 @@
             </div>
         </form>
         <hr size="40" type="Line" class="Border-sc-1bzcz1p-0 cOSlxV">
+
+        <!--모달 추가-->
+        <div tabindex="-1" role="dialog" id="__BVID__287___BV_modal_outer_" style="position: absolute; z-index: 1040; display: none;">
+            <div id="__BVID__287" role="dialog" aria-describedby="__BVID__287___BV_modal_body_" class="modal fade show" aria-modal="true" style="display: block; padding-left: 17px;background: rgba(0, 0, 0, 0.35);">
+                <div class="modal-dialog modal-lg modal-dialog-centered">
+                    <span tabindex="0"></span>
+                    <!--저장 확인-->
+                    <div id="__BVID__123___BV_modal_content_" tabindex="-1" class="modal-content" style="">
+                        <!---->
+                        <div id="__BVID__123___BV_modal_body_" class="modal-body">
+                            <div class="text-center p-3"><div class="text-frip-primary my-3">
+                                <i class="" style="font-size: 2.5rem;"></i>
+                            </div>
+                                <h2></h2>
+                                <div>
+                                    <div></div>
+                                    <div>
+                                        <div>
+                                            <span></span>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        <footer id="__BVID__123___BV_modal_footer_" class="modal-footer">
+                            <div class="text-center p-3 container">
+                                <button type="button" class="saveRequest btn frip-button btn-frip-primary btn-tab">
+                                    확인
+                                </button>
+                            </div>
+                        </footer>
+                    </div>
+                    <span tabindex="0"></span>
+                </div>
+            </div>
+            <div id="__BVID__287___BV_modal_backdrop_" class="modal-backdrop"></div>
+        </div>
+        <!--모달 추가-->
+
         <div class="Padded-sc-1mbfr4n-0 KOZDF"><label class="MyEnergy__EnergyLogLabel-sc-3e7d9b-1 cdbJvn">충전 내역</label>
             <div>
                 <th:block th:each="point:${points}">
@@ -44,7 +83,7 @@
                         <div class="EnergyLog__CreateDate-sc-19yls83-1 ckxegI" th:text="${#strings.substring(point.pointMerchantUid,2,13)}"></div>
                         <div class="EnergyLog__ContentWrapper-sc-19yls83-2 fmfynV">
                             <div class="EnergyLog__Title-sc-19yls83-3 fGTHSO" th:text="*{pointContent}"></div>
-<!--                            <div class="EnergyLog__DescriptionWrapper-sc-19yls83-4 cgVuQs" th:text="*{createDate}"></div>-->
+                            <!--                            <div class="EnergyLog__DescriptionWrapper-sc-19yls83-4 cgVuQs" th:text="*{createDate}"></div>-->
                             <div th:switch="${#strings.toString(point.pointType)}">
                                 <!--th:text="'-'+*{pointAmountHistory}"-->
                                 <div th:case="환불대기" class="EnergyLog__Value-sc-19yls83-6 ftNZaKA"></div>
@@ -55,16 +94,7 @@
                         </div>
                     </div>
                 </th:block>
-                <!--                <div class="EnergyLog__Wrapper-sc-19yls83-0 hrLllS">-->
-                <!--                    <div class="EnergyLog__CreateDate-sc-19yls83-1 ckxegI">5월 8일</div>-->
-                <!--                    <div class="EnergyLog__ContentWrapper-sc-19yls83-2 fmfynV">-->
-                <!--                        <div class="EnergyLog__Title-sc-19yls83-3 fGTHSO">오늘부터 1일♥</div>-->
-                <!--                        <div class="EnergyLog__DescriptionWrapper-sc-19yls83-4 cgVuQs">-->
-                <!--                            <div>유효기간 2020-06-08 까지</div>-->
-                <!--                        </div>-->
-                <!--                        <div class="EnergyLog__Value-sc-19yls83-6 fwsFdo">+2,000</div>-->
-                <!--                    </div>-->
-                <!--                </div>-->
+
             </div>
         </div>
     </div>
@@ -81,6 +111,7 @@
 <script src="/js/fix/header.js"></script>
 <script src="/js/myPoint/myPoint.js"></script>
 <script th:inline="javascript">
+
     var IMP = window.IMP;   // 생략 가능
     IMP.init("imp44480067"); // 예: imp00000000
     function requestPay() {
@@ -94,7 +125,7 @@
         console.log(isodate);
         var inputPrice=$("input[type='number']").val();
         if(!inputPrice){
-            alert("충전 금액을 입력해주세요.");
+            checkValue();
             return;
         }
         var year = date.getFullYear().toString();
@@ -127,7 +158,7 @@
             buyer_tel : '010-9982-3950',
             buyer_addr : '서울특별시 강남구 삼성동',
             buyer_postcode : '123-456'
-        }, function (rsp) { // callback
+        },function (rsp) { // callback
             if (rsp.success) {
                 console.log(rsp);
                 var requestData={"point":rsp.paid_amount,"userId":userId,"merchantUid":rsp.merchant_uid,"impUid":rsp.imp_uid,"content":rsp.name};
@@ -137,21 +168,11 @@
                     headers:{"Content-Type":"application/json"},
                     data:JSON.stringify(requestData),
                     dataType:"text",
-                    success:function(result){
-                        location.reload(true);
-                        console.log(result);
-                        if(result=="success") {
-                            alert("MyOcean 포인트 충전에 성공했습니다.");
-                        }
-                    },
-                    error:function(status,error){
-                        console.log(status,error);
-                        alert("포인트 충전에 실패했습니다.");
-                    }
+                    success:checkSuccess,
+                    error:payError
                 })
             } else {
-                alert("포인트 충전에 실패했습니다. 충전 또는 한도를 초과하는 금액을 입력하였는지 확인해주십시오.");
-                console.log(rsp);
+                payError();
             }
         });
     }
@@ -202,6 +223,38 @@
         }).fail(function(error) { // 환불 실패시 로직
             console.log(error);
             alert("환불 실패");
+        });
+    }
+
+    function checkValue(){
+        $("div.modal-content").find("h2").text("충전 오류");
+        $("div.modal-content").find("span").text("충전 금액이 한도를 초과하거나, 잘못된 금액을 입력하셨습니다.");
+        $("#__BVID__287___BV_modal_outer_").show();
+        $(".btn-tab").on("click",function(){
+            $("#__BVID__287___BV_modal_outer_").hide();
+            // location.href="/myPoint/index";
+            return;
+        });
+    }
+
+    function checkSuccess() {
+        $("div.modal-content").find("h2").text("충전 완료");
+        $("div.modal-content").find("span").text("MyOcean 포인트 충전이 완료되었습니다.");
+        $("#__BVID__287___BV_modal_outer_").show();
+        $(".btn-tab").on("click", function () {
+            $("#__BVID__287___BV_modal_outer_").hide();
+            location.href="/myPoint/index";
+            return;
+        });
+    }
+
+    function payError() {
+        $("div.modal-content").find("h2").text("충전 실패");
+        $("div.modal-content").find("span").text("MyOcean 포인트 충전애 실패하셨습니다.");
+        $("#__BVID__287___BV_modal_outer_").show();
+        $(".btn-tab").on("click", function () {
+            $("#__BVID__287___BV_modal_outer_").hide();
+            return;
         });
     }
 </script>

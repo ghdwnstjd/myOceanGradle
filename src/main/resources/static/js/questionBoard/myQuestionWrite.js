@@ -6,19 +6,18 @@ $(".registryWrap").on("click", function(){
 
     // 제목을 안적었을 때
     if($(".questionTitle").val()==""){
-        alert("제목을 기재해주세요.")
+        contentTitle();
         return;
     }
     else if(!$(".questionTitle").val().includes("이용") && !$(".questionTitle").val().includes("회원") && !$(".questionTitle").val().includes("포인트") && !$(".questionTitle").val().includes("퀘스트")){
-        alert("문의하실 제목을 정확히 입력해주세요.");
+        contentCategory();
         return;
     }
     // 아무 내용도 안적혀있을 때
     if(tinymceText==""){
-        alert("내용을 기재해주세요.");
+        checkContent();
         return;
     }
-    alert("등록 완료되었습니다.");
     let askData={"askTitle":$(".questionTitle").val(),"askContent":tinymceText,"askUser":askUser};
     $.ajax({
         url:"myQuestionWriteOk",
@@ -26,12 +25,7 @@ $(".registryWrap").on("click", function(){
         headers:{"Content-Type":"application/json"},
         data:JSON.stringify(askData),
         dataType:"text",
-        success:function(result){
-            console.log(result);
-            if(result=="success") {
-                location.href="http://localhost:15000/questionBoard/myQuestion";
-            }
-        },
+        success:successWrite,
         error:function(status,error){
             console.log(status,error);
         }
@@ -113,3 +107,42 @@ $(function() {
         content_style: 'body { font-family:Helvetica,Arial,sans-serif; font-size:14px }'
     });
 });
+
+/*=====================================================================*/
+function contentTitle() {
+    $("div.modal-content").find("h2").text("작성 오류");
+    $("div.modal-content").find("span").text("제목을 기재해주세요.");
+    $("#__BVID__287___BV_modal_outer_").show();
+    $(".btn-tab").on("click", function () {
+        $("#__BVID__287___BV_modal_outer_").hide();
+        return;
+    });
+}
+function contentCategory() {
+    $("div.modal-content").find("h2").text("작성 오류");
+    $("div.modal-content").find("span").text("문의하실 제목을 정확히 입력해주세요.");
+    $("#__BVID__287___BV_modal_outer_").show();
+    $(".btn-tab").on("click", function () {
+        $("#__BVID__287___BV_modal_outer_").hide();
+        return;
+    });
+}
+function checkContent() {
+    $("div.modal-content").find("h2").text("작성 오류");
+    $("div.modal-content").find("span").text("내용을 기재해주세요.");
+    $("#__BVID__287___BV_modal_outer_").show();
+    $(".btn-tab").on("click", function () {
+        $("#__BVID__287___BV_modal_outer_").hide();
+        return;
+    });
+}
+function successWrite() {
+    $("div.modal-content").find("h2").text("작성 완료");
+    $("div.modal-content").find("span").text("회원님의 질문이 작성되었습니다.");
+    $("#__BVID__287___BV_modal_outer_").show();
+    $(".btn-tab").on("click", function () {
+        $("#__BVID__287___BV_modal_outer_").hide();
+        location.href="/questionBoard/myQuestion";
+        return;
+    });
+}

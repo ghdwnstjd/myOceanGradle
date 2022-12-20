@@ -34,13 +34,13 @@ $nickname.on("blur", function(){
 })
 
 //닉네임 유효성 검사
-$save.on("click", function(){
-    //닉네임 입력하지 않았을 경우
-    if($nicknameInput.val()==0){
-        alert("닉네임을 입력해주세요.");
-        return;
-    }
-})
+// $save.on("click", function(){
+//     //닉네임 입력하지 않았을 경우
+//     if($nicknameInput.val()==0){
+//         alert("닉네임을 입력해주세요.");
+//         return;
+//     }
+// })
 
 
 // 프로필 사진 변경
@@ -97,7 +97,7 @@ $(".fSxFPc").on("change", function(){
             console.log(imageSrc);
 
             if($('input[name=userFileSize]').val()>100000){
-                alert("파일 사이즈는 10MB 이하여야합니다.");
+                checkFileSize();
                 return;
             }
 
@@ -150,19 +150,19 @@ $(".jMUPmW").on("click", function(e){
     e.preventDefault();
 
     if($("input[name='nickname']").val()==""){
-        alert("닉네임을 입력해주세요.");
+        checkNickname();
         return;
     }
 
     if($("input[name=communityFileName]").val()==""){
-        alert("썸네일 이미지를 입력해주세요");
+        checkThumbnail();
         return;
     }
 
     // changeInfo();
 
     // if($('input[name=userFileName]').val()){
-        /*업데이트*/
+    /*업데이트*/
     userSave.update({
         userFileName: $("input[name=userFileName]").val(),
         userFileUuid: $("input[name=userFileUuid]").val(),
@@ -183,16 +183,16 @@ $(".jMUPmW").on("click", function(e){
     // }
 });
 
-function changeInfo(){
-    $.ajax({
-        type:"post",
-        url:"/myPage/changeInfo",
-        headers:{"Content-Type":"application/json"},
-        data:$nicknameInput.val(),
-        success:function(){;},
-        error:function(){;}
-    })
-}
+// function changeInfo(){
+//     $.ajax({
+//         type:"post",
+//         url:"/myPage/changeInfo",
+//         headers:{"Content-Type":"application/json"},
+//         data:$nicknameInput.val(),
+//         success:function(){;},
+//         error:function(){;}
+//     })
+// }
 
 let userSave = (function(){
     function add(myPageContents, callback, error){
@@ -202,15 +202,8 @@ let userSave = (function(){
             type: "post",
             data: JSON.stringify(myPageContents),
             contentType: "application/json; charset=utf-8",
-            success: function(result, status, xhr){
-                if(callback){
-                    callback(result);
-                }
-                alert("등록 완료되었습니다.");
-                location.href="/mypage/index";
-            },
-            error: function(xhr, status, err)
-            {
+            success:checkSuccessAdd,
+            error: function(xhr, status, err) {
                 if(error){
                     error(err);
                 }
@@ -225,13 +218,7 @@ let userSave = (function(){
             type: "post",
             data: JSON.stringify(myPageContents),
             contentType: "application/json; charset=utf-8",
-            success: function(result, status, xhr) {
-                if (callback) {
-                    callback(result);
-                }
-                alert("수정 완료되었습니다.");
-                location.href="/myPage/index";
-            },
+            success: checkSuccessUpdate,
             error: function(xhr, status, err){
                 if(error){
                     error(err);
@@ -243,3 +230,53 @@ let userSave = (function(){
     return {add: add, update: update}
 })();
 
+/*===========================================================================*/
+function checkSuccessUpdate() {
+    $("div.modal-content").find("h2").text("수정완료");
+    $("div.modal-content").find("span").text("회원님의 정보수정이 완료되었습니다.");
+    $("#__BVID__287___BV_modal_outer_").show();
+    $(".btn-tab").on("click", function () {
+        $("#__BVID__287___BV_modal_outer_").hide();
+        location.href="/myPage/index";
+        return;
+    });
+}
+function checkSuccessAdd() {
+    $("div.modal-content").find("h2").text("등록완료");
+    $("div.modal-content").find("span").text("회원님의 정보등록이 완료되었습니다.");
+    $("#__BVID__287___BV_modal_outer_").show();
+    $(".btn-tab").on("click", function () {
+        $("#__BVID__287___BV_modal_outer_").hide();
+        location.href="/myPage/index";
+        return;
+    });
+}
+function checkFileSize() {
+    $("div.modal-content").find("h2").text("변경오류");
+    $("div.modal-content").find("span").text("파일 사이즈는 10MB 이하여야합니다.");
+    $("#__BVID__287___BV_modal_outer_").show();
+    $(".btn-tab").on("click", function () {
+        $("#__BVID__287___BV_modal_outer_").hide();
+        return;
+    });
+}
+function checkNickname() {
+    $("div.modal-content").find("h2").text("변경오류");
+    $("div.modal-content").find("span").text("닉네임을 입력해주세요.");
+    $("#__BVID__287___BV_modal_outer_").show();
+    $(".btn-tab").on("click", function () {
+        $("#__BVID__287___BV_modal_outer_").hide();
+        return;
+    });
+}
+function checkThumbnail() {
+    $("div.modal-content").find("h2").text("변경오류");
+    $("div.modal-content").find("span").text("썸네일 이미지를 입력해주세요.");
+    $("#__BVID__287___BV_modal_outer_").show();
+    $(".btn-tab").on("click", function () {
+        $("#__BVID__287___BV_modal_outer_").hide();
+        return;
+    });
+}
+
+/*===========================================================================*/

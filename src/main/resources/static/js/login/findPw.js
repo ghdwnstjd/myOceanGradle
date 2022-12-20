@@ -46,7 +46,7 @@ function checkEmail(){
         data:$inputemail.value,
         dataType:"text",
         success:function(result){
-            if(result=="unavailable"){alert("등록된 이메일이 아닙니다. 소셜 회원이라면 가입한 소셜로 로그인해주세요.");}
+            if(result=="unavailable"){verifyEmail();}
             else{transferMail();}
         }
     })
@@ -64,3 +64,16 @@ function saveFindData(){
         error:function(status,error){;}
     })
 }
+
+function verifyEmail() {
+    $("div.modal-content").find("h2").text("작성 오류");
+    $("div.modal-content").find("span").text("등록된 이메일이 아닙니다. 소셜 회원이라면 가입한 소셜로 로그인해주세요.");
+    $("#__BVID__287___BV_modal_outer_").show();
+    $(".btn-tab").on("click", function () {
+        $("#__BVID__287___BV_modal_outer_").hide();
+        return;
+    });
+}
+
+// if(result=="unavailable"){alert("등록된 이메일이 아닙니다. 소셜 회원이라면 가입한 소셜로 로그인해주세요.");}
+// else{transferMail();}

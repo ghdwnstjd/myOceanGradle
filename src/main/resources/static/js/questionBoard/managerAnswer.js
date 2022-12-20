@@ -15,10 +15,12 @@ $(".modify").on("click", function(){
 // tinymce 등록 버튼 클릭 시 관리자 답변내역 수정
 $(".applyButton").on("click", function(){
     var tinymceText = tinymce.get("tinymceEditor").getContent();
-    $(".managerAnswerContent").html(tinymceText);
 
-    $(".managerWrap").hide();
-    $(".modify").text("수정");
+    if(tinymceText.trim().length!=0) {
+        $(".managerAnswerContent").html(tinymceText);
+        $(".managerWrap").hide();
+        $(".modify").text("수정");
+    }
 })
 
 // 등록 유효성 검사
@@ -28,28 +30,21 @@ $(".answerApply").on("click", function(){
     console.log(tinymceText);
 
     // 아무 내용도 안적혀있을 때
-    if(tinymceText==""){
-        alert("내용을 기재해주세요.");
+    if(tinymce.get("tinymceEditor").getContent().trim().length==0){
+        checkContent();
         return;
+    }else {
+        let askData = {"askContent": tinymceText, "askId": askId};
+        $.ajax({
+            url: "usersQuestionWriteOk",
+            type: "post",
+            headers: {"Content-Type": "application/json"},
+            data: JSON.stringify(askData),
+            dataType: "text",
+            success: successWriteManager,
+            error: failWriteManager
+        })
     }
-    alert("등록 완료되었습니다.");
-    let askData={"askContent":tinymceText,"askId":askId};
-    $.ajax({
-        url:"usersQuestionWriteOk",
-        type:"post",
-        headers:{"Content-Type":"application/json"},
-        data:JSON.stringify(askData),
-        dataType:"text",
-        success:function(result){
-            console.log(result);
-            if(result=="success") {
-                location.href="http://localhost:15000/questionBoard/usersQuestion";
-            }
-        },
-        error:function(status,error){
-            console.log(status,error);
-        }
-    })
 })
 
 //에디터
@@ -126,3 +121,34 @@ $(function() {
         content_style: 'body { font-family:Helvetica,Arial,sans-serif; font-size:14px }'
     });
 });
+
+function checkContent() {
+    $("div.modal-content").find("h2").text("작성 오류");
+    $("div.modal-content").find("span").text("내용을 기재해주세요.");
+    $("#__BVID__287___BV_modal_outer_").show();
+    $(".btn-tab").on("click", function () {
+        $("#__BVID__287___BV_modal_outer_").hide();
+        return;
+    });
+}
+
+function successWriteManager() {
+    $("div.modal-content").find("h2").text("작성 완료");
+    $("div.modal-content").find("span").text("회원님의 질문에 대한 답변이 작성되었습니다.");
+    $("#__BVID__287___BV_modal_outer_").show();
+    $(".btn-tab").on("click", function () {
+        $("#__BVID__287___BV_modal_outer_").hide();
+        location.href="/questionBoard/usersQuestion";
+        return;
+    });
+}
+
+function failWriteManager() {
+    $("div.modal-content").find("h2").text("작성 실패");
+    $("div.modal-content").find("span").text("질문 작성에 실패하였습니다.");
+    $("#__BVID__287___BV_modal_outer_").show();
+    $(".btn-tab").on("click", function () {
+        $("#__BVID__287___BV_modal_outer_").hide();
+        return;
+    });
+}

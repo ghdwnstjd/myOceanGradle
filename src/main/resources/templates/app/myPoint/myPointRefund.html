@@ -43,7 +43,7 @@
                         <div class="EnergyLog__CreateDate-sc-19yls83-1 ckxegI" th:text="${#strings.substring(payPoint.pointMerchantUid,2,13)}"></div>
                         <div class="EnergyLog__ContentWrapper-sc-19yls83-2 fmfynV">
                             <div class="EnergyLog__Title-sc-19yls83-3 fGTHSO" th:text="*{pointContent}"></div>
-<!--                            <div class="EnergyLog__DescriptionWrapper-sc-19yls83-4 cgVuQs" th:text="*{createDate}"></div>-->
+                            <!--                            <div class="EnergyLog__DescriptionWrapper-sc-19yls83-4 cgVuQs" th:text="*{createDate}"></div>-->
                             <!--th:text="'-'+*{pointAmountHistory}"-->
                             <div th:if="${#strings.toString(payPoint.pointType)}=='결제'" class="EnergyLog__Value-sc-19yls83-6 fwsFdo" th:text="|+*{pointAmountHistory}|"></div>
                             <!--                            <input type="hidden" name="requestAsk" th:value="*{pointId}">-->
@@ -52,21 +52,48 @@
                         <input type="hidden" name="requestRefund" th:value="*{pointId}">
                     </div>
                 </th:block>
-                <!--                <div class="EnergyLog__Wrapper-sc-19yls83-0 hrLllS">-->
-                <!--                    <div class="EnergyLog__CreateDate-sc-19yls83-1 ckxegI">5월 8일</div>-->
-                <!--                    <div class="EnergyLog__ContentWrapper-sc-19yls83-2 fmfynV">-->
-                <!--                        <div class="EnergyLog__Title-sc-19yls83-3 fGTHSO">오늘부터 1일♥</div>-->
-                <!--                        <div class="EnergyLog__DescriptionWrapper-sc-19yls83-4 cgVuQs">-->
-                <!--                            <div>유효기간 2020-06-08 까지</div>-->
-                <!--                        </div>-->
-                <!--                        <div class="EnergyLog__Value-sc-19yls83-6 fwsFdo">+2,000</div>-->
-                <!--                    </div>-->
-                <!--                </div>-->
+
             </div>
         </div>
     </div>
 </div>
-
+<!--모달 추가-->
+<div tabindex="-1" role="dialog" id="__BVID__287___BV_modal_outer_" style="position: absolute; z-index: 1040; display: none;">
+    <div id="__BVID__287" role="dialog" aria-describedby="__BVID__287___BV_modal_body_" class="modal fade show" aria-modal="true" style="display: block; padding-left: 17px;background: rgba(0, 0, 0, 0.35);">
+        <div class="modal-dialog modal-lg modal-dialog-centered">
+            <span tabindex="0"></span>
+            <!--저장 확인-->
+            <div id="__BVID__123___BV_modal_content_" tabindex="-1" class="modal-content" style="">
+                <!---->
+                <div id="__BVID__123___BV_modal_body_" class="modal-body">
+                    <div class="text-center p-3"><div class="text-frip-primary my-3">
+                        <i class="" style="font-size: 2.5rem;"></i>
+                    </div>
+                        <h2>환불완료</h2>
+                        <div>
+                            <div></div>
+                            <div>
+                                <div>
+                                    <span></span>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <footer id="__BVID__123___BV_modal_footer_" class="modal-footer">
+                    <div class="text-center p-3 container">
+                        <button type="button" class="saveRequest btn frip-button btn-frip-primary btn-tab">
+                            확인
+                        </button>
+                    </div>
+                </footer>
+            </div>
+            <span tabindex="0"></span>
+        </div>
+    </div>
+    <div id="__BVID__287___BV_modal_backdrop_" class="modal-backdrop"></div>
+</div>
+<!--모달 추가-->
 
 <footer th:replace="/app/fix/footer.html :: footer"></footer>
 </body>
