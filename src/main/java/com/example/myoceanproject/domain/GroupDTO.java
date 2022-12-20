@@ -134,8 +134,15 @@ public class GroupDTO {
     }
     public void handleMessage(WebSocketSession session, ChattingDTO chattingDTO,
                               ObjectMapper objectMapper) throws IOException {
+        log.info("===============================================================================");
+        log.info("===============================================================================");
+        log.info("==================================== handleMessage ===========================================");
+        log.info("===============================================================================");
+        log.info("===============================================================================");
+        log.info("===============================================================================");
 //            http 세션에 저장된 유저 아이디
-        if(chattingDTO.getMessageType().equals(MessageType.ENTER.toString())&&session.getAttributes().get("groupId") == chattingDTO.getGroupId()){ // 사용자가 채팅방에 입장하여 "확인"을 눌렀을 때는 해당 닉네임 접속을 환영한다는 문구 출력
+        log.info(session.toString());
+        if(chattingDTO.getMessageType().equals(MessageType.ENTER.toString())){ // 사용자가 채팅방에 입장하여 "확인"을 눌렀을 때는 해당 닉네임 접속을 환영한다는 문구 출력
             chattingDTO.setChattingContent(chattingDTO.getSenderUserNickName() + "님이 입장하셨습니다.");
             sessions.put(chattingDTO.getSenderUserId(), session);
         }else {
@@ -143,16 +150,34 @@ public class GroupDTO {
                     chattingDTO.getImageSrc() + ":"
                     +chattingDTO.getSenderUserNickName() + ":" + chattingDTO.getChattingContent());
         }
-        if(session.getAttributes().get("groupId") == chattingDTO.getGroupId()){
-            send(chattingDTO,objectMapper);}
+//        if(session.getAttributes().get("groupId") == chattingDTO.getGroupId()){
 
+            log.info("===============================================================================");
+            log.info("===============================================================================");
+            log.info("==================================== handleMessage ===========================================");
+            log.info("===============================================================================");
+            log.info("===============================================================================");
+            log.info("===============================================================================");
+            log.info(sessions.toString());
+            send(chattingDTO,objectMapper);
     }
+
+//    }
 
     private void send(ChattingDTO chattingDTO, ObjectMapper objectMapper) throws IOException {
         TextMessage textMessage = new TextMessage(objectMapper.
                 writeValueAsString(chattingDTO.getChattingContent()));
+        log.info("===============================================================================");
+        log.info("===============================================================================");
+        log.info("==================================== send ===========================================");
+        log.info("===============================================================================");
+        log.info("===============================================================================");
+        log.info("===============================================================================");
+        log.info(sessions.toString());
         for(WebSocketSession sess : sessions.values()){
-            if(sess.getAttributes().get("groupId") == chattingDTO.getGroupId()) {
+            Long groupId = (Long) sess.getAttributes().get("groupId");
+            if(groupId.equals(chattingDTO.getGroupId())) {
+                log.info("if문 들어옴");
                 sess.sendMessage(textMessage);
             }
         }

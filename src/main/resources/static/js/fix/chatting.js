@@ -449,11 +449,14 @@ function send(){
 }
 function onOpen(){
     webSocket.send(JSON.stringify({groupId : myGroupId, messageType:'입장',senderUserNickName:userNickName, senderUserId : userId}));
+    console.log("onOpen 들어옴");
+    console.log(myGroupId);
 }
 function onMessage(e){
     if(!e.data.includes(':')){
         return null;
     }
+    console.log("onmessage들어옴")
     chattingRoom =document.getElementById("chattingRoom");
     chatdata = e.data;
     let datas = chatdata.replaceAll("\"", "");

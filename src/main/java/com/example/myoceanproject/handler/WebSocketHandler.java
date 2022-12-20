@@ -51,6 +51,14 @@ public class WebSocketHandler extends TextWebSocketHandler {
             chattingDTO.setImageSrc("/mypage/display?fileName=" + userFilePath + "/" + userFileUuid + "_" + userFileName);
         }
 
+        log.info("============================================================");
+        log.info("============================================================");
+        log.info("============================================================");
+        log.info("webSocketHandler들어옴");
+        log.info(session.toString());
+        log.info("============================================================");
+        log.info("============================================================");
+        log.info("============================================================");
 
         chattingDTO.setSenderGroupMemberId(groupMemberId);
 
