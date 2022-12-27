@@ -30,7 +30,8 @@
 다음부터는 기획을 좀 더 꼼꼼하게 해서 프로젝트 수행을 좀 더 효율적으로 할 것이다.
 
 ## ERD
-![3차 프로젝트ERD](https://user-images.githubusercontent.com/114047532/209596119-87d82f21-2959-494c-bac2-5735ae13fc4a.PNG)
+![3차 프로젝트ERD](https://user-images.githubusercontent.com/114047532/209598714-2310adfb-118a-44c0-8a54-93bcde6385c0.PNG)
+
 
 
 ## 사용 툴
